@@ -1,0 +1,138 @@
+openapi: "3.0.0"
+
+info:
+  title: "Trail Tacker API"
+  version: "1.0"
+
+paths:
+  /hikes:
+    get:
+      summary: Get List of Hikes
+      operationId: list_hikes
+      x-openapi-router-controller: controllers.hikes
+      responses:
+        200:
+          description: List of Hikes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hikes'
+    post:
+      summary: Add a new Hike
+      operationId: add_hike
+      x-openapi-router-controller: controllers.hikes
+      responses:
+        201:
+          description: Created
+      requestBody:
+        description: Hike to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hikes'
+
+  /photos:
+    get:
+      summary: Get List of Photos
+      operationId: list_photos
+      x-openapi-router-controller: controllers.photos
+      responses:
+        200:
+          description: List of Hikes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Photos'
+    post:
+      summary: Add a new Photo
+      operationId: add_photo
+      x-openapi-router-controller: controllers.photos
+      responses:
+        201:
+          description: Created
+      requestBody:
+        description: Hike to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Photos'
+
+  /geometry:
+    get:
+      summary: Get the polylines for the trails
+      operationId: get_polylines
+      x-openapi-router-controller: controllers.geometry
+      responses:
+        200:
+          description: Polyline for completed and remaining as well as distances for each
+
+components:
+  schemas:
+    Hikes:
+      type: object
+      required:
+        - id
+        - startLat
+        - startLong
+        - endLat
+        - endLong
+        - startTime
+        - endTime
+      properties:
+        id:
+          type: integer
+          description: Unique Identifier
+          example: 123
+          readOnly: true
+        startLat:
+          type: number
+          description: Start Latitude
+          example: 43.529
+        startLong:
+          type: number
+          description: Start Longitude
+          example: -79.256
+        endLat:
+          type: number
+          description: End Latitude
+          example: 43.529
+        endLong:
+          type: number
+          description: End Longitude
+          example: -79.256
+        startTime:
+          type: string
+          description: Start Time
+        endTime:
+          type: string
+          description: End Time
+    Photos:
+      type: object
+      required:
+        - id
+        - timeStamp
+        - location
+        - lat
+        - long
+      properties:
+        id:
+          type: integer
+          description: Unique Identifier
+          example: 123
+          readOnly: true
+        timeStamp:
+          type: string
+          description: Photo Time Stamp
+        location:
+          type: string
+          description: Photo Location
+        lat:
+          type: number
+          description: Latitude
+          example: 43.529
+        long:
+          type: number
+          description: Longitude
+          example: -79.256
