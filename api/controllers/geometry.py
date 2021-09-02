@@ -14,7 +14,8 @@ coord_filenames = ["1-niagaraSection.csv",
                    "5-DufferinHi-LandSection.csv",
                    "6-AdventureSection.csv",
                    "7-BeaverValleySection.csv",
-                   "8-PeninsulaSection.csv"]
+                   "8-SydenhamSection.csv",
+                   "9-PeninsulaSection.csv"]
 parent_dir = pathlib.Path(__file__).parent.resolve()
 cords = []
 

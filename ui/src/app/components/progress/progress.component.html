@@ -1,3 +1,23 @@
-<div class="row">
-    <div id="hotel_map"></div>
+<div class="map-container">
+    <div class="card-container">
+        <mat-card>
+            <mat-card-title>Total Distance</mat-card-title>
+            <mat-card-content>
+                {{ totalDis | number: '1.0-2' }}km
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-title>Distance Hiked</mat-card-title>
+            <mat-card-content>
+                {{ disHiked | number: '1.0-2' }}km
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-title>Progress</mat-card-title>
+            <mat-card-content>
+                {{ (disHiked / totalDis)*100 | number: '1.0-0' }}%
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div id="map"></div>
 </div>
