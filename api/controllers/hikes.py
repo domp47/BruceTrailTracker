@@ -2,13 +2,18 @@ import mysql.connector
 from flask import Response
 
 import controllers.shared
-from controllers.geometry import find_closest_coord
+from controllers.geometry import find_closest_coord, get_polyline_from_coord
 from models.hike import Hike
 from controllers.shared import dbParams
 
 
 def list_hikes() -> []:
-    return controllers.shared.list_hikes()
+    hikes = controllers.shared.list_hikes()
+
+    for hike in hikes:
+        hike.polyline, hike.distance = get_polyline_from_coord(hike.startLat, hike.startLong, hike.endLat, hike.endLong)
+
+    return hikes
 
 
 def add_hike(body: dict) -> Response:
@@ -28,8 +33,8 @@ def add_hike(body: dict) -> Response:
 
     sql = """
         INSERT INTO trailTracker.hike
-        (start_time, end_time, start_lat, start_long, end_lat, end_long)
-        VALUES (?, ?, ?, ?, ?, ?);
+        (name, start_time, end_time, start_lat, start_long, end_lat, end_long)
+        VALUES (?, ?, ?, ?, ?, ?, ?);
         """
     with mysql.connector.connect(**dbParams) as conn:
         with conn.cursor() as cursor:

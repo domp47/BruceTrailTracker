@@ -6,12 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 // import { MatListModule } from '@angular/material/list';
 // import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatTooltipModule } from '@angular/material/tooltip';
 // import { MatSortModule } from '@angular/material/sort';
-// import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 // import { MatSelectModule } from '@angular/material/select';
-// import { MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 // import { MatDatepickerModule } from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material/core';
@@ -31,33 +33,45 @@ import { AppComponent } from './app.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { HikesComponent } from './components/hikes/hikes.component';
+import { AddHikeComponent } from './components/add-hike/add-hike.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MatDatepickerModule } from '@matheo/datepicker';
+import { MatNativeDateModule } from '@matheo/datepicker/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProgressComponent
+    ProgressComponent,
+    HikesComponent,
+    AddHikeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    // FormsModule,
 
     // Angular Material Components
     MatToolbarModule,
+    MatDividerModule,
+    MatFormFieldModule,
     // MatSidenavModule,
     // MatListModule,
     MatButtonModule,
     // MatIconModule,
-    // MatTableModule,
+    MatTableModule,
     // MatTooltipModule,
     // MatSortModule,
-    // MatPaginatorModule,
+    MatPaginatorModule,
     // MatSelectModule,
-    // MatInputModule,
+    MatInputModule,
     MatCardModule,
-    // MatDatepickerModule,
-    // MatNativeDateModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     // MatCheckboxModule,
     // MatGridListModule,
     // MatTabsModule,

@@ -4,12 +4,15 @@ class Hike:
             return
 
         self.id = int(self.try_get(body, "id"))
+        self.name = self.try_get(body, "name")
         self.startLat = float(self.try_get(body, "startLat"))
         self.startLong = float(self.try_get(body, "startLong"))
         self.endLat = float(self.try_get(body, "endLat"))
         self.endLong = float(self.try_get(body, "endLong"))
         self.startTime = self.try_get(body, "startTime")
         self.endTime = self.try_get(body, "endTime")
+        self.polyline = ""
+        self.distance = 0
 
     @staticmethod
     def try_get(body: dict, key: str):
@@ -21,6 +24,8 @@ class Hike:
     def is_valid(self) -> []:
         errors = []
 
+        if not self.name:
+            errors.append("Name is required")
         if not self.startLat:
             errors.append("Start Latitude is required")
         if not self.startLong:

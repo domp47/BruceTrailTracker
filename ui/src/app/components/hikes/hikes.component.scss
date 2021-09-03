@@ -1,0 +1,28 @@
+mat-card {
+    margin: 4rem;
+}
+
+table {
+    margin-top: 2rem !important;
+    width: 100%;
+    min-width: 650px;
+}
+
+.table-row {
+    height: 0;
+}
+
+.table-element-row td {
+    border-bottom-width: 0;
+}
+
+.table-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.add-container {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 1rem;
+}

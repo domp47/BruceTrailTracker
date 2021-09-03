@@ -65,6 +65,23 @@ def find_closest_coord(latitude: float, longitude: float) -> (float, float):
     return closest_cord
 
 
+def get_polyline_from_coord(start_latitude: float, start_longitude: float, end_latitude: float, end_longitude: float):
+    start_idx = cords.index((start_latitude, start_longitude))
+    end_idx = cords.index((end_latitude, end_longitude))
+
+    poly_cords = cords[start_idx: end_idx+1]
+
+    dis = 0
+    p_cord = None
+    for cord in poly_cords:
+        if p_cord:
+            dis += distance(p_cord[0], p_cord[1], cord[0], cord[1])
+
+        p_cord = cord
+
+    return polyline.encode(poly_cords), dis
+
+
 def calc_polys_distances(hikes: []):
     hiked_cords = []
 

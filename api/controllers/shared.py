@@ -16,7 +16,8 @@ dbParams = dict(entry.split('=') for entry in dbString.split(';'))
 def list_hikes() -> []:
     hikes = []
 
-    select_str = "SELECT id, start_time, end_time, start_lat, start_long, end_lat, end_long FROM trailTracker.hike"
+    select_str = \
+        "SELECT id, name, start_time, end_time, start_lat, start_long, end_lat, end_long FROM trailTracker.hike"
 
     with mysql.connector.connect(**dbParams) as conn:
         with conn.cursor() as cursor:
@@ -26,12 +27,13 @@ def list_hikes() -> []:
             while row:
                 hike = Hike()
                 hike.id = row[0]
-                hike.startTime = row[1]
-                hike.endTime = row[2]
-                hike.startLat = row[3]
-                hike.startLong = row[4]
-                hike.endLat = row[5]
-                hike.endLong = row[6]
+                hike.name = row[1]
+                hike.startTime = row[2]
+                hike.endTime = row[3]
+                hike.startLat = row[4]
+                hike.startLong = row[5]
+                hike.endLat = row[6]
+                hike.endLong = row[7]
 
                 hikes.append(hike)
                 row = cursor.fetchone()
