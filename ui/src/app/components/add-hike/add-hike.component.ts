@@ -13,6 +13,9 @@ import OSM from 'ol/source/OSM';
 import VectorLayer from 'ol/layer/Vector';
 import View from 'ol/View';
 import Feature from 'ol/Feature';
+import { transform } from 'ol/proj';
+import MousePosition from 'ol/control/MousePosition'
+
 
 @Component({
   selector: 'app-add-hike',
@@ -34,6 +37,9 @@ export class AddHikeComponent implements OnInit {
   outstandingStyle: Style;
   map: Map | undefined;
 
+  selectStart: boolean = false;
+  selectEnd: boolean = false;
+
   constructor(private router: Router, private geoService: GeometryService) { 
     this.vectorSrc = new VectorSource();
     this.outstandingStyle = new Style({
@@ -44,6 +50,8 @@ export class AddHikeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var mouse = new MousePosition()
+
     this.map = new Map({
       target: 'map',
       layers: [
@@ -60,6 +68,8 @@ export class AddHikeComponent implements OnInit {
       })
     });
 
+    this.map.on('singleclick', this.mapClicked.bind(this));
+
     this.geoService.get().subscribe((data) => {
       var route = new PolyLine({
         factor: 1e5
@@ -74,6 +84,35 @@ export class AddHikeComponent implements OnInit {
       feature.setStyle(this.outstandingStyle);
       this.vectorSrc.addFeature(feature);
     });
+  }
+
+  startClicked(){
+    if(!this.selectStart){
+      this.selectEnd = false;
+    }
+
+    this.selectStart = !this.selectStart
+  }
+
+  endClicked(){
+    if(!this.selectEnd){
+      this.selectStart = false;
+    }
+
+    this.selectEnd = !this.selectEnd
+  }
+
+  mapClicked(evt: any){
+    const cords = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+
+    if(this.selectStart){
+      this.form.patchValue({startLat: cords[1], startLong: cords[0]});
+      this.selectStart = false;
+    }
+    if(this.selectEnd){
+      this.form.patchValue({endLat: cords[1], endLong: cords[0]});
+      this.selectEnd = false;
+    }
   }
 
   cancel() {

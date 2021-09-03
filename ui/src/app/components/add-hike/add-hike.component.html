@@ -46,6 +46,10 @@
             </div>
 
             <mat-divider [inset]="true"></mat-divider>
+            <div class="mt-2 mb-sm">
+                <button id="selectStart" mat-raised-button (click)="startClicked()" [color]="selectStart ? 'primary' : 'accent'">Select Start</button>
+                <button id="selectEnd" mat-raised-button class="ml-2" (click)="endClicked()" [color]="selectEnd ? 'primary' : 'accent'">Select End</button>
+            </div>
             <div id="map"></div>
             <mat-divider [inset]="true"></mat-divider>
 
