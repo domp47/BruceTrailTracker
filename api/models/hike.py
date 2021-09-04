@@ -1,23 +1,26 @@
+from dateutil import parser
+
+
 class Hike:
     def __init__(self, body: dict = None):
         if not body:
             return
 
-        self.id = int(self.try_get(body, "id"))
+        self.id = self.try_get(body, "id", lambda x: int(x))
         self.name = self.try_get(body, "name")
-        self.startLat = float(self.try_get(body, "startLat"))
-        self.startLong = float(self.try_get(body, "startLong"))
-        self.endLat = float(self.try_get(body, "endLat"))
-        self.endLong = float(self.try_get(body, "endLong"))
-        self.startTime = self.try_get(body, "startTime")
-        self.endTime = self.try_get(body, "endTime")
+        self.startLat = self.try_get(body, "startLat", lambda x: float(x))
+        self.startLong = self.try_get(body, "startLong", lambda x: float(x))
+        self.endLat = self.try_get(body, "endLat", lambda x: float(x))
+        self.endLong = self.try_get(body, "endLong", lambda x: float(x))
+        self.startTime = self.try_get(body, "startTime", lambda x: parser.parse(x))
+        self.endTime = self.try_get(body, "endTime", lambda x: parser.parse(x))
         self.polyline = ""
         self.distance = 0
 
     @staticmethod
-    def try_get(body: dict, key: str):
+    def try_get(body: dict, key: str, transform=None):
         if key in body:
-            return body[key]
+            return transform(body[key]) if transform else body[key]
         else:
             return None
 

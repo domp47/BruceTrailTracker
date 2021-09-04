@@ -34,10 +34,11 @@ def add_hike(body: dict) -> Response:
     sql = """
         INSERT INTO trailTracker.hike
         (name, start_time, end_time, start_lat, start_long, end_lat, end_long)
-        VALUES (?, ?, ?, ?, ?, ?, ?);
+        VALUES (%s, %s, %s, %s, %s, %s, %s);
         """
     with mysql.connector.connect(**dbParams) as conn:
         with conn.cursor() as cursor:
-            cursor.execute(sql, (hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong))
+            cursor.execute(sql, (hike.name, hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong))
+        conn.commit()
 
     return Response(status=201)

@@ -271,12 +271,8 @@ $altTheme: (
     background-color: $dark-bg-lighter-5;
 }
 
-tr.table-element-row:not(.table-expanded-row):hover {
+tr.table-element-row:hover {
   background: $dark-bg-lighter-10;
-}
-
-tr.table-element-row:not(.table-expanded-row):active {
-  background: $dark-background;
 }
 
 .edit-action-buttons {

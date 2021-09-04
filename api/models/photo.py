@@ -1,19 +1,21 @@
+from dateutil import parser
+
 
 class Photo:
     def __init__(self, body: dict = None):
         if not body:
             return
 
-        self.id = int(self.try_get(body, "id"))
-        self.timeStamp = self.try_get(body, "timeStamp")
+        self.id = self.try_get(body, "id", lambda x: int(x))
+        self.timeStamp = self.try_get(body, "timeStamp", lambda x: parser.parse(x))
         self.location = self.try_get(body, "location")
-        self.lat = float(self.try_get(body, "lat"))
-        self.long = float(self.try_get(body, "long"))
+        self.lat = self.try_get(body, "lat", lambda x: float(x))
+        self.long = self.try_get(body, "long", lambda x: float(x))
 
     @staticmethod
-    def try_get(body: dict, key: str):
+    def try_get(body: dict, key: str, transform=None):
         if key in body:
-            return body[key]
+            return transform(body[key]) if transform else body[key]
         else:
             return None
 

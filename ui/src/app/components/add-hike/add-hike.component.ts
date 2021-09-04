@@ -14,7 +14,8 @@ import VectorLayer from 'ol/layer/Vector';
 import View from 'ol/View';
 import Feature from 'ol/Feature';
 import { transform } from 'ol/proj';
-import MousePosition from 'ol/control/MousePosition'
+import { HikeService } from 'src/app/services/hike/hike.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class AddHikeComponent implements OnInit {
   selectStart: boolean = false;
   selectEnd: boolean = false;
 
-  constructor(private router: Router, private geoService: GeometryService) { 
+  constructor(private router: Router, private geoService: GeometryService, private hikeService: HikeService, private snackbar: MatSnackBar) { 
     this.vectorSrc = new VectorSource();
     this.outstandingStyle = new Style({
       stroke: new Stroke({
@@ -50,8 +51,6 @@ export class AddHikeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var mouse = new MousePosition()
-
     this.map = new Map({
       target: 'map',
       layers: [
@@ -120,6 +119,14 @@ export class AddHikeComponent implements OnInit {
   }
 
   save() {
+    if (!this.form.valid) {
+      this.snackbar.open("Hike details are invalid.", undefined, { duration: 5000 });
+      return;
+    }
+
+    this.hikeService.add(this.form.value).subscribe(() => {
+      this.router.navigateByUrl("/hikes");
+    });
   }
 
   static validateNumber(min: number, max: number): ValidatorFn {

@@ -31,12 +31,12 @@ export class ProgressComponent implements OnInit {
     this.vectorSrc = new VectorSource();
     this.hikedStyle = new Style({
       stroke: new Stroke({
-        width: 6, color: "#4F2C1D"
+        width: 6, color: "#0000FF"
       })
     });
     this.outstandingStyle = new Style({
       stroke: new Stroke({
-        width: 6, color: "#E95C20"
+        width: 6, color: "#FF0000"
       })
     });
   }
