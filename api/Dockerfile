@@ -12,7 +12,7 @@ COPY requirements.txt /tmp/requirements.txt
 
 RUN mkdir /app
 COPY ./app /app
-RUN rm -r /app/env
+RUN rm -r /app/env 2> /dev/null
 
 RUN python3 -m virtualenv /app/env
 
