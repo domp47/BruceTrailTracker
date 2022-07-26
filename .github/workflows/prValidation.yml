@@ -43,4 +43,4 @@ jobs:
       - name: Build Angular
         working-directory: ui
         run: |
-          npm build
+          npm run build
