@@ -1,13 +1,15 @@
+"""Controller for hike api."""
 import mysql.connector
 from flask import Response
 
 import controllers.shared
 from controllers.geometry import find_closest_coord, get_polyline_from_coord
-from models.hike import Hike
 from controllers.shared import dbParams
+from models.hike import Hike
 
 
 def list_hikes() -> []:
+    """List all completed hikes."""
     hikes = controllers.shared.list_hikes()
 
     for hike in hikes:
@@ -17,6 +19,7 @@ def list_hikes() -> []:
 
 
 def add_hike(body: dict) -> Response:
+    """Add a new hike."""
     hike = Hike(body)
 
     s_coord = find_closest_coord(hike.startLat, hike.startLong)
@@ -38,7 +41,19 @@ def add_hike(body: dict) -> Response:
         """
     with mysql.connector.connect(**dbParams) as conn:
         with conn.cursor() as cursor:
-            cursor.execute(sql, (hike.name, hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong))
+            cursor.execute(
+                sql, (hike.name, hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong)
+            )
         conn.commit()
 
     return Response(status=201)
+
+
+def get_hike_dis(body: dict):
+    """Get the distance of a hike."""
+    s_coord = find_closest_coord(body["startLat"], body["startLong"])
+    e_coord = find_closest_coord(body["endLat"], body["endLong"])
+
+    polyline, dis = get_polyline_from_coord(s_coord[0], s_coord[1], e_coord[0], e_coord[1])
+
+    return {"polyline": polyline, "distance": dis}

@@ -1,7 +1,10 @@
+"""Shared Module for all controllers."""
 import configparser
-import mysql.connector
-import pathlib
 import os
+import pathlib
+
+import mysql.connector
+
 from models.hike import Hike
 
 parent_dir = pathlib.Path(__file__).parent.resolve()
@@ -9,15 +12,17 @@ configFilename = os.path.join(parent_dir, "..", "config.ini")
 
 config = configparser.RawConfigParser()
 config.read(configFilename)
-dbString = config['DATABASE']['ConnectionString']
-dbParams = dict(entry.split('=') for entry in dbString.split(';'))
+dbString = config["DATABASE"]["ConnectionString"]
+dbParams = dict(entry.split("=") for entry in dbString.split(";"))
 
 
 def list_hikes() -> []:
+    """Get all hikes in the db."""
     hikes = []
 
-    select_str = \
+    select_str = (
         "SELECT id, name, start_time, end_time, start_lat, start_long, end_lat, end_long FROM trailTracker.hike"
+    )
 
     with mysql.connector.connect(**dbParams) as conn:
         with conn.cursor() as cursor:

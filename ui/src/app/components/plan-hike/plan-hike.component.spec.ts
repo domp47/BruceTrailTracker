@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddHikeComponent } from './add-hike.component';
+import { PlanHikeComponent } from './plan-hike.component';
 
-describe('AddHikeComponent', () => {
-  let component: AddHikeComponent;
-  let fixture: ComponentFixture<AddHikeComponent>;
+describe('PlanHikeComponent', () => {
+  let component: PlanHikeComponent;
+  let fixture: ComponentFixture<PlanHikeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddHikeComponent],
+      declarations: [PlanHikeComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddHikeComponent);
+    fixture = TestBed.createComponent(PlanHikeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

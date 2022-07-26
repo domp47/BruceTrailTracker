@@ -16,7 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hikes'
+                $ref: "#/components/schemas/Hikes"
     post:
       summary: Add a new Hike
       operationId: add_hike
@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Hikes'
+              $ref: "#/components/schemas/Hikes"
 
   /photos:
     get:
@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Photos'
+                $ref: "#/components/schemas/Photos"
     post:
       summary: Add a new Photo
       operationId: add_photo
@@ -57,7 +57,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Photos'
+              $ref: "#/components/schemas/Photos"
 
   /geometry:
     get:
@@ -68,8 +68,55 @@ paths:
         200:
           description: Polyline for completed and remaining as well as distances for each
 
+    post:
+      summary: Get Distance for hike
+      operationId: get_hike_dis
+      x-openapi-router-controller: controllers.hikes
+      responses:
+        200:
+          description: Distance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  distance:
+                    type: integer
+                    description: The distance of the hike.
+      requestBody:
+        description: coordinates
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Coords"
+
 components:
   schemas:
+    Coords:
+      type: object
+      required:
+        - startLat
+        - startLong
+        - endLat
+        - endLong
+      properties:
+        startLat:
+          type: number
+          description: Start Latitude
+          example: 43.529
+        startLong:
+          type: number
+          description: Start Longitude
+          example: -79.256
+        endLat:
+          type: number
+          description: End Latitude
+          example: 43.529
+        endLong:
+          type: number
+          description: End Longitude
+          example: -79.256
     Hikes:
       type: object
       required:

@@ -1,54 +1,10 @@
 <div class="content-margin">
   <mat-card>
-    <mat-card-title>Add New Hike</mat-card-title>
+    <mat-card-title>Plan a Hike</mat-card-title>
     <mat-card-content [formGroup]="form">
       <mat-divider [inset]="true"></mat-divider>
 
       <div class="input-container mt-2">
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input
-            matInput
-            id="levelInput"
-            aria-label="Enter Hike Name"
-            type="text"
-            formControlName="name"
-            required
-          />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Start Time</mat-label>
-          <input
-            id="startTime"
-            aria-label="Enter Start Time"
-            matInput
-            [matDatepicker]="start_picker"
-            formControlName="startTime"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="start_picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker type="datetime" #start_picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>End Time</mat-label>
-          <input
-            id="endTime"
-            aria-label="Enter End Time"
-            matInput
-            [matDatepicker]="end_picker"
-            formControlName="endTime"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="end_picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker type="datetime" #end_picker></mat-datepicker>
-        </mat-form-field>
-
         <mat-form-field>
           <mat-label>Start Latitude</mat-label>
           <input
@@ -114,24 +70,10 @@
         >
           Select End
         </button>
+        <h3>Hike Distance: {{ hikeDis > 0 ? hikeDis + "km" : "-" }}</h3>
       </div>
       <div id="map"></div>
       <mat-divider [inset]="true"></mat-divider>
-
-      <div class="mt-2 edit-action-buttons">
-        <button
-          id="save"
-          class="ml-2"
-          mat-raised-button
-          (click)="save()"
-          color="primary"
-        >
-          Save
-        </button>
-        <button id="cancel" color="accent" mat-raised-button (click)="cancel()">
-          Cancel
-        </button>
-      </div>
     </mat-card-content>
   </mat-card>
 </div>

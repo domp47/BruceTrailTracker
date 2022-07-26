@@ -26,7 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 // import { MatProgressBarModule } from '@angular/material/progress-bar';
 // import { MatMenuModule } from '@angular/material/menu';
 // import { MatExpansionModule } from '@angular/material/expansion';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,17 +35,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HikesComponent } from './components/hikes/hikes.component';
 import { AddHikeComponent } from './components/add-hike/add-hike.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatDatepickerModule } from '@matheo/datepicker';
 import { MatNativeDateModule } from '@matheo/datepicker/core';
+import { PlanHikeComponent } from './components/plan-hike/plan-hike.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProgressComponent,
     HikesComponent,
-    AddHikeComponent
+    AddHikeComponent,
+    PlanHikeComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,9 +83,9 @@ import { MatNativeDateModule } from '@matheo/datepicker/core';
     // MatProgressBarModule,
     // MatMenuModule,
     // MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,7 +1,10 @@
+"""Model to represent a hike."""
 from dateutil import parser
 
 
 class Hike:
+    """A hike object in class form."""
+
     def __init__(self, body: dict = None):
         if not body:
             return
@@ -19,12 +22,14 @@ class Hike:
 
     @staticmethod
     def try_get(body: dict, key: str, transform=None):
+        """Try and get a key from a dict with optional transformation function."""
         if key in body:
             return transform(body[key]) if transform else body[key]
-        else:
-            return None
+
+        return None
 
     def is_valid(self) -> []:
+        """Determine whether the model is valid."""
         errors = []
 
         if not self.name:

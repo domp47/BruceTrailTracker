@@ -1,16 +1,19 @@
 <div class="app-container">
-    <mat-toolbar>
-        <a mat-button routerLink="/home" [routerLinkActive]="['menu-item-active']">
-            Overview
-        </a>
-        <a mat-button routerLink="/hikes" [routerLinkActive]="['menu-item-active']">
-            Hikes
-        </a>
-        <!-- <a mat-button>
+  <mat-toolbar>
+    <a mat-button routerLink="/home" [routerLinkActive]="['menu-item-active']">
+      Overview
+    </a>
+    <a mat-button routerLink="/hikes" [routerLinkActive]="['menu-item-active']">
+      Hikes
+    </a>
+    <a mat-button routerLink="/plan" [routerLinkActive]="['menu-item-active']">
+      Plan Hike
+    </a>
+    <!-- <a mat-button>
             Photos
         </a> -->
-    </mat-toolbar>
-    <div class="app mat-drawer-container">
-        <router-outlet></router-outlet>
-    </div>
+  </mat-toolbar>
+  <div class="app mat-drawer-container">
+    <router-outlet></router-outlet>
+  </div>
 </div>
