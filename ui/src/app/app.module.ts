@@ -39,13 +39,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatDatepickerModule } from '@matheo/datepicker';
 import { MatNativeDateModule } from '@matheo/datepicker/core';
+import { PlanHikeComponent } from './components/plan-hike/plan-hike.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProgressComponent,
     HikesComponent,
-    AddHikeComponent
+    AddHikeComponent,
+    PlanHikeComponent
   ],
   imports: [
     BrowserModule,

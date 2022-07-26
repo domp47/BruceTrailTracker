@@ -18,6 +18,13 @@ export class GeometryService extends BaseService {
     return this.httpClient.get(`${this.url}`).pipe(
       map(data => data),
       catchError(err => this.handleError("Error Getting Geometry", err))
-    )
+    );
+  }
+
+  getDistance(sLat: number, sLong: number, eLat: number, eLong: number) {
+    return this.httpClient.post(this.url, {"startLat": sLat, "startLong": sLong, "endLat": eLat, "endLong": eLong}).pipe(
+      map(data => data),
+      catchError(err => this.handleError("Error Getting Geometry", err))
+    );
   }
 }

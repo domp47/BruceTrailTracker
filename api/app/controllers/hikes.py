@@ -42,3 +42,11 @@ def add_hike(body: dict) -> Response:
         conn.commit()
 
     return Response(status=201)
+
+def get_hike_dis(body: dict):
+    s_coord = find_closest_coord(body["startLat"], body["startLong"])
+    e_coord = find_closest_coord(body["endLat"], body["endLong"])
+
+    polyline, dis = get_polyline_from_coord(s_coord[0], s_coord[1], e_coord[0], e_coord[1])
+
+    return {"polyline": polyline, "distance": dis}
