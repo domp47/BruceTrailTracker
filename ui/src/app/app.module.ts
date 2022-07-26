@@ -26,7 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 // import { MatProgressBarModule } from '@angular/material/progress-bar';
 // import { MatMenuModule } from '@angular/material/menu';
 // import { MatExpansionModule } from '@angular/material/expansion';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,7 +47,7 @@ import { PlanHikeComponent } from './components/plan-hike/plan-hike.component';
     ProgressComponent,
     HikesComponent,
     AddHikeComponent,
-    PlanHikeComponent
+    PlanHikeComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,9 +83,9 @@ import { PlanHikeComponent } from './components/plan-hike/plan-hike.component';
     // MatProgressBarModule,
     // MatMenuModule,
     // MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

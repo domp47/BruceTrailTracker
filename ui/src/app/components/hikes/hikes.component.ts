@@ -1,5 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import * as olProj from 'ol/proj';
 import PolyLine from 'ol/format/Polyline';
 import VectorSource from 'ol/source/Vector';
@@ -20,48 +26,51 @@ import { PolylineEncoder } from 'src/app/polyline';
   styleUrls: ['./hikes.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
     ]),
-  ]
+  ],
 })
 export class HikesComponent implements OnInit {
-
   dataSource: any[] = [];
   columnsToDisplay = ['name', 'startTime', 'endTime', 'startCoord', 'endCoord'];
   expandedElement: any | null;
-  pipeFormat = "MMMM dd, yyyy, h:mm a";
+  pipeFormat = 'MMMM dd, yyyy, h:mm a';
 
   style: Style | undefined;
   map: Map | undefined;
-  vectorSrc : VectorSource<any> | undefined;
+  vectorSrc: VectorSource<any> | undefined;
 
   polylineEncoder = new PolylineEncoder();
 
-  constructor(private hikeService: HikeService) { }
+  constructor(private hikeService: HikeService) {}
 
   ngOnInit(): void {
     this.style = new Style({
       stroke: new Stroke({
-        width: 6, color: "#0000FF"
-      })
+        width: 6,
+        color: '#0000FF',
+      }),
     });
     this.vectorSrc = new VectorSource();
     this.map = new Map({
       target: 'map-hike',
       layers: [
         new TileLayer({
-          source: new OSM()
+          source: new OSM(),
         }),
         new VectorLayer({
-          source: this.vectorSrc
-        })
+          source: this.vectorSrc,
+        }),
       ],
       view: new View({
         center: olProj.fromLonLat([-80.2374, 44.1]),
-        zoom: 7
-      })
+        zoom: 7,
+      }),
     });
 
     this.hikeService.list().subscribe((data) => {
@@ -73,29 +82,30 @@ export class HikesComponent implements OnInit {
     this.vectorSrc?.clear();
 
     var route = new PolyLine({
-      factor: 1e5
-    }).readGeometry(hike["polyline"], {
+      factor: 1e5,
+    }).readGeometry(hike['polyline'], {
       dataProjection: 'EPSG:4326',
-      featureProjection: 'EPSG:3857'
+      featureProjection: 'EPSG:3857',
     });
     var feature = new Feature({
       type: 'route',
-      geometry: route
+      geometry: route,
     });
     feature.setStyle(this.style);
     this.vectorSrc?.addFeature(feature);
 
-    const middleCoord = this.getMiddleCoord(hike["polyline"]);
-    this.map?.setView(new View({
-      center: olProj.fromLonLat([middleCoord[1], middleCoord[0]]),
-      zoom: 10
-    }));
+    const middleCoord = this.getMiddleCoord(hike['polyline']);
+    this.map?.setView(
+      new View({
+        center: olProj.fromLonLat([middleCoord[1], middleCoord[0]]),
+        zoom: 10,
+      })
+    );
   }
 
-  getMiddleCoord(geoString: string){
+  getMiddleCoord(geoString: string) {
     var coords = this.polylineEncoder.decode(geoString);
 
-    return coords[Math.floor(coords.length/2)];
+    return coords[Math.floor(coords.length / 2)];
   }
-
 }

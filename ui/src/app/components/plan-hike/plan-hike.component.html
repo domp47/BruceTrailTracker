@@ -1,39 +1,79 @@
 <div class="content-margin">
-    <mat-card>
-        <mat-card-title>Plan a Hike</mat-card-title>
-        <mat-card-content [formGroup]="form">
-            <mat-divider [inset]="true"></mat-divider>
-            
-            <div class="input-container mt-2">
-                <mat-form-field>
-                    <mat-label>Start Latitude</mat-label>
-                    <input matInput id="startLat" aria-label="Enter Start Latitude" formControlName="startLat" pattern="" required>
-                </mat-form-field>
+  <mat-card>
+    <mat-card-title>Plan a Hike</mat-card-title>
+    <mat-card-content [formGroup]="form">
+      <mat-divider [inset]="true"></mat-divider>
 
-                <mat-form-field>
-                    <mat-label>Start Longitude</mat-label>
-                    <input matInput id="startLong" aria-label="Enter Start Longitude" formControlName="startLong" required>
-                </mat-form-field>
+      <div class="input-container mt-2">
+        <mat-form-field>
+          <mat-label>Start Latitude</mat-label>
+          <input
+            matInput
+            id="startLat"
+            aria-label="Enter Start Latitude"
+            formControlName="startLat"
+            pattern=""
+            required
+          />
+        </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>End Latitude</mat-label>
-                    <input matInput id="endLat" aria-label="Enter End Latitude" formControlName="endLat" required>
-                </mat-form-field>
+        <mat-form-field>
+          <mat-label>Start Longitude</mat-label>
+          <input
+            matInput
+            id="startLong"
+            aria-label="Enter Start Longitude"
+            formControlName="startLong"
+            required
+          />
+        </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>End Longitude</mat-label>
-                    <input matInput id="endLong" aria-label="Enter End Longitude" formControlName="endLong" required>
-                </mat-form-field>
-            </div>
+        <mat-form-field>
+          <mat-label>End Latitude</mat-label>
+          <input
+            matInput
+            id="endLat"
+            aria-label="Enter End Latitude"
+            formControlName="endLat"
+            required
+          />
+        </mat-form-field>
 
-            <mat-divider [inset]="true"></mat-divider>
-            <div class="mt-2 mb-sm">
-                <button id="selectStart" mat-raised-button (click)="startClicked()" [color]="selectStart ? 'primary' : 'accent'">Select Start</button>
-                <button id="selectEnd" mat-raised-button class="ml-2" (click)="endClicked()" [color]="selectEnd ? 'primary' : 'accent'">Select End</button>
-                <h3>Hike Distance: {{ hikeDis > 0 ? hikeDis + 'km' : '-' }}</h3>
-            </div>
-            <div id="map"></div>
-            <mat-divider [inset]="true"></mat-divider>
-        </mat-card-content>
-    </mat-card>
+        <mat-form-field>
+          <mat-label>End Longitude</mat-label>
+          <input
+            matInput
+            id="endLong"
+            aria-label="Enter End Longitude"
+            formControlName="endLong"
+            required
+          />
+        </mat-form-field>
+      </div>
+
+      <mat-divider [inset]="true"></mat-divider>
+      <div class="mt-2 mb-sm">
+        <button
+          id="selectStart"
+          mat-raised-button
+          (click)="startClicked()"
+          [color]="selectStart ? 'primary' : 'accent'"
+        >
+          Select Start
+        </button>
+        <button
+          id="selectEnd"
+          mat-raised-button
+          class="ml-2"
+          (click)="endClicked()"
+          [color]="selectEnd ? 'primary' : 'accent'"
+        >
+          Select End
+        </button>
+        <h3>Hike Distance: {{ hikeDis > 0 ? hikeDis + "km" : "-" }}</h3>
+      </div>
+      <div id="map"></div>
+      <mat-divider [inset]="true"></mat-divider>
+    </mat-card-content>
+  </mat-card>
 </div>

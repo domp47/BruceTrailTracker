@@ -1,8 +1,8 @@
 import mysql.connector
 from flask import Response
 
-from models.photo import Photo
 from controllers.shared import dbParams
+from models.photo import Photo
 
 
 def list_photos() -> []:

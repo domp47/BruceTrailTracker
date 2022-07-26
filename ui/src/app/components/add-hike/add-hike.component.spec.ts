@@ -8,9 +8,8 @@ describe('AddHikeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddHikeComponent ]
-    })
-    .compileComponents();
+      declarations: [AddHikeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

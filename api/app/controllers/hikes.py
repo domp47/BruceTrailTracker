@@ -3,8 +3,8 @@ from flask import Response
 
 import controllers.shared
 from controllers.geometry import find_closest_coord, get_polyline_from_coord
-from models.hike import Hike
 from controllers.shared import dbParams
+from models.hike import Hike
 
 
 def list_hikes() -> []:
@@ -38,10 +38,13 @@ def add_hike(body: dict) -> Response:
         """
     with mysql.connector.connect(**dbParams) as conn:
         with conn.cursor() as cursor:
-            cursor.execute(sql, (hike.name, hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong))
+            cursor.execute(
+                sql, (hike.name, hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong)
+            )
         conn.commit()
 
     return Response(status=201)
+
 
 def get_hike_dis(body: dict):
     s_coord = find_closest_coord(body["startLat"], body["startLong"])

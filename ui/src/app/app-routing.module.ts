@@ -9,32 +9,32 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    component: ProgressComponent
+    component: ProgressComponent,
   },
   {
     path: 'plan',
-    component: PlanHikeComponent
+    component: PlanHikeComponent,
   },
   {
     path: 'hikes',
-    component: HikesComponent
+    component: HikesComponent,
   },
   {
     path: 'hikes/add',
-    component: AddHikeComponent
+    component: AddHikeComponent,
   },
   {
     path: '**',
-    redirectTo: '/home'
-  }
+    redirectTo: '/home',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

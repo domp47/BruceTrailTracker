@@ -16,7 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hikes'
+                $ref: "#/components/schemas/Hikes"
     post:
       summary: Add a new Hike
       operationId: add_hike
@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Hikes'
+              $ref: "#/components/schemas/Hikes"
 
   /photos:
     get:
@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Photos'
+                $ref: "#/components/schemas/Photos"
     post:
       summary: Add a new Photo
       operationId: add_photo
@@ -57,7 +57,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Photos'
+              $ref: "#/components/schemas/Photos"
 
   /geometry:
     get:
@@ -78,18 +78,18 @@ paths:
           content:
             application/json:
               schema:
-                  type: object
-                  properties:
-                    distance:
-                      type: integer
-                      description: The distance of the hike.
+                type: object
+                properties:
+                  distance:
+                    type: integer
+                    description: The distance of the hike.
       requestBody:
         description: coordinates
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Coords'
+              $ref: "#/components/schemas/Coords"
 
 components:
   schemas:
