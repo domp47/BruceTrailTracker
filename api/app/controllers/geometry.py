@@ -1,3 +1,4 @@
+"""Do earth geometry calculations."""
 import csv
 import os
 import pathlib
@@ -23,6 +24,7 @@ cords = []
 
 
 def distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Get the distance between two coordinates."""
     p = pi / 180
     a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
     # 2*R*asin...
@@ -30,6 +32,7 @@ def distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 
 
 def calc_distance(vertices) -> float:
+    """Calculate the distance between a list of vertices."""
     dis = 0
     prev_cord = None
     for cord in vertices:
@@ -54,6 +57,7 @@ total_distance = calc_distance(cords)
 
 
 def find_closest_coord(latitude: float, longitude: float) -> (float, float):
+    """Given a coord find the closest coord on the bruce trail."""
     min_dis = 9999999999
     closest_cord = None
 
@@ -68,6 +72,7 @@ def find_closest_coord(latitude: float, longitude: float) -> (float, float):
 
 
 def get_polyline_from_coord(start_latitude: float, start_longitude: float, end_latitude: float, end_longitude: float):
+    """Get the bruce trail polyline from a start and endpoint."""
     start_idx = cords.index((start_latitude, start_longitude))
     end_idx = cords.index((end_latitude, end_longitude))
 
@@ -85,6 +90,7 @@ def get_polyline_from_coord(start_latitude: float, start_longitude: float, end_l
 
 
 def calc_polys_distances(hikes: []):
+    """Calculate distance of all hikes."""
     hiked_cords = []
 
     for hike in hikes:
@@ -111,6 +117,7 @@ def calc_polys_distances(hikes: []):
 
 
 def get_polylines():
+    """Get the polylines for the ui to show."""
     hikes = list_hikes()
 
     completed_poly = []

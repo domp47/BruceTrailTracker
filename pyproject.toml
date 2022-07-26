@@ -23,3 +23,12 @@ ignore-patterns = "test_.*?py"
 
 [tool.pylint.format]
 max-line-length = 120
+
+[tool.pylint.message_control]
+disable = [
+    "invalid-name",
+    "unsubscriptable-object",
+    "too-many-instance-attributes",
+    "unnecessary-lambda",
+    "unspecified-encoding"
+]

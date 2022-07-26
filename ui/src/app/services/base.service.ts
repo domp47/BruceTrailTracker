@@ -10,7 +10,7 @@ export class BaseService {
   }
 
   handleError(title: string, err: Response | any): Observable<any> {
-    var errorMsg = err?.error?.detail;
+    const errorMsg = err?.error?.detail;
     this.snackBar.open(`${title}: ${errorMsg}`, undefined, { duration: 5000 });
     return of();
   }

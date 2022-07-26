@@ -16,12 +16,12 @@ export class PolylineEncoder {
   _encode(current: number, previous: number, factor: number) {
     current = this.py2_round(current * factor);
     previous = this.py2_round(previous * factor);
-    var coordinate = current - previous;
+    let coordinate = current - previous;
     coordinate <<= 1;
     if (current - previous < 0) {
       coordinate = ~coordinate;
     }
-    var output = '';
+    let output = '';
     while (coordinate >= 0x20) {
       output += String.fromCharCode((0x20 | (coordinate & 0x1f)) + 63);
       coordinate >>= 5;
@@ -41,17 +41,17 @@ export class PolylineEncoder {
    *
    * @see https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js
    */
-  decode(str: string, precision: number = 5) {
-    var index = 0,
+  decode(str: string, precision = 5) {
+    const coordinates = [];
+    const factor = Math.pow(10, Number.isInteger(precision) ? precision : 5);
+    let index = 0,
       lat = 0,
       lng = 0,
-      coordinates = [],
       shift = 0,
       result = 0,
       byte = null,
       latitude_change,
-      longitude_change,
-      factor = Math.pow(10, Number.isInteger(precision) ? precision : 5);
+      longitude_change;
 
     // Coordinates have variable length when encoded, so just keep
     // track of whether we've hit the end of the string. In each
@@ -96,18 +96,18 @@ export class PolylineEncoder {
    * @param {Number} precision
    * @returns {String}
    */
-  encode(coordinates: number[][], precision: number = 5) {
+  encode(coordinates: number[][], precision = 5) {
     if (!coordinates.length) {
       return '';
     }
 
-    var factor = Math.pow(10, Number.isInteger(precision) ? precision : 5),
-      output =
-        this._encode(coordinates[0][0], 0, factor) +
-        this._encode(coordinates[0][1], 0, factor);
+    const factor = Math.pow(10, Number.isInteger(precision) ? precision : 5);
+    let output =
+      this._encode(coordinates[0][0], 0, factor) +
+      this._encode(coordinates[0][1], 0, factor);
 
-    for (var i = 1; i < coordinates.length; i++) {
-      var a = coordinates[i],
+    for (let i = 1; i < coordinates.length; i++) {
+      const a = coordinates[i],
         b = coordinates[i - 1];
       output += this._encode(a[0], b[0], factor);
       output += this._encode(a[1], b[1], factor);
@@ -117,9 +117,9 @@ export class PolylineEncoder {
   }
 
   flipped(coords: any) {
-    var flipped = [];
-    for (var i = 0; i < coords.length; i++) {
-      var coord = coords[i].slice();
+    const flipped = [];
+    for (let i = 0; i < coords.length; i++) {
+      const coord = coords[i].slice();
       flipped.push([coord[1], coord[0]]);
     }
     return flipped;

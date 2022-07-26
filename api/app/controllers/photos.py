@@ -1,3 +1,4 @@
+"""Controller for photos api."""
 import mysql.connector
 from flask import Response
 
@@ -6,6 +7,7 @@ from models.photo import Photo
 
 
 def list_photos() -> []:
+    """Get list of photos."""
     photos = []
 
     select_str = "SELECT id, time_stamp, location, lat, 'long' FROM trailTracker.photo"
@@ -30,6 +32,7 @@ def list_photos() -> []:
 
 
 def add_photo(body: dict):
+    """Add a new photo."""
     photo = Photo(body)
 
     errs = photo.is_valid()

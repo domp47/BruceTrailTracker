@@ -23,8 +23,8 @@ export class ProgressComponent implements OnInit {
   outstandingStyle: Style;
   hikedStyle: Style;
 
-  disHiked: number = 0;
-  totalDis: number = 0;
+  disHiked = 0;
+  totalDis = 0;
 
   constructor(private geoService: GeometryService) {
     this.vectorSrc = new VectorSource();
@@ -65,7 +65,7 @@ export class ProgressComponent implements OnInit {
       this.disHiked = data['completed']['distance'];
       this.totalDis = data['total']['distance'];
 
-      var completedPolys = data['completed']['polyline'];
+      const completedPolys = data['completed']['polyline'];
       for (let index = 0; index < completedPolys.length; index++) {
         const geoString = completedPolys[index];
 
@@ -74,14 +74,14 @@ export class ProgressComponent implements OnInit {
     });
   }
 
-  add_polyline(geoString: string, hiked: boolean = false) {
-    var route = new PolyLine({
+  add_polyline(geoString: string, hiked = false) {
+    const route = new PolyLine({
       factor: 1e5,
     }).readGeometry(geoString, {
       dataProjection: 'EPSG:4326',
       featureProjection: 'EPSG:3857',
     });
-    var feature = new Feature({
+    const feature = new Feature({
       type: 'route',
       geometry: route,
     });

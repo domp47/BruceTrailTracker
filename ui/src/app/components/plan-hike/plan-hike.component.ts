@@ -45,12 +45,12 @@ export class PlanHikeComponent implements OnInit {
   outstandingStyle: Style;
   map: Map | undefined;
 
-  selectStart: boolean = false;
-  selectEnd: boolean = false;
+  selectStart = false;
+  selectEnd = false;
 
   overallPolyline: any;
 
-  hikeDis: number = 0;
+  hikeDis = 0;
 
   constructor(private geoService: GeometryService) {
     this.vectorSrc = new VectorSource();
@@ -146,14 +146,14 @@ export class PlanHikeComponent implements OnInit {
     this.selectEnd = !this.selectEnd;
   }
 
-  add_polyline(geoString: string, hiked: boolean = false) {
-    var route = new PolyLine({
+  add_polyline(geoString: string, hiked = false) {
+    const route = new PolyLine({
       factor: 1e5,
     }).readGeometry(geoString, {
       dataProjection: 'EPSG:4326',
       featureProjection: 'EPSG:3857',
     });
-    var feature = new Feature({
+    const feature = new Feature({
       type: 'route',
       geometry: route,
     });

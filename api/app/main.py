@@ -1,3 +1,4 @@
+"""Main API entrypoint."""
 import configparser
 import datetime
 import os
@@ -9,7 +10,10 @@ from flask_cors import CORS
 
 
 class Encoder(JSONEncoder):
+    """Custom JSON Encoder for Date Time."""
+
     def default(self, o):
+        """Encode object."""
         if isinstance(o, datetime.date):
             return f"{o.isoformat()}Z"
 

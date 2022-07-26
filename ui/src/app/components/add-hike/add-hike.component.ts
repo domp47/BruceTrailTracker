@@ -55,8 +55,8 @@ export class AddHikeComponent implements OnInit {
   outstandingStyle: Style;
   map: Map | undefined;
 
-  selectStart: boolean = false;
-  selectEnd: boolean = false;
+  selectStart = false;
+  selectEnd = false;
 
   constructor(
     private router: Router,
@@ -93,13 +93,13 @@ export class AddHikeComponent implements OnInit {
     this.map.on('singleclick', this.mapClicked.bind(this));
 
     this.geoService.get().subscribe((data) => {
-      var route = new PolyLine({
+      const route = new PolyLine({
         factor: 1e5,
       }).readGeometry(data['total']['polyline'], {
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857',
       });
-      var feature = new Feature({
+      const feature = new Feature({
         type: 'route',
         geometry: route,
       });

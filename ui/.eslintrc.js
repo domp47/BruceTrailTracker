@@ -18,9 +18,9 @@ module.exports = {
     },
   },
   rules: {
-    "max-len": ["error", { code: 120 }],
-    //   "import/no-unresolved": "off",
-    //   "@typescript-eslint/no-explicit-any": "off",
+    "max-len": ["error", { code: 130 }],
+    "import/no-unresolved": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {

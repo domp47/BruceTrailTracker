@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   animate,
   state,
@@ -81,13 +81,13 @@ export class HikesComponent implements OnInit {
   hikeClicked(hike: any) {
     this.vectorSrc?.clear();
 
-    var route = new PolyLine({
+    const route = new PolyLine({
       factor: 1e5,
     }).readGeometry(hike['polyline'], {
       dataProjection: 'EPSG:4326',
       featureProjection: 'EPSG:3857',
     });
-    var feature = new Feature({
+    const feature = new Feature({
       type: 'route',
       geometry: route,
     });
@@ -104,7 +104,7 @@ export class HikesComponent implements OnInit {
   }
 
   getMiddleCoord(geoString: string) {
-    var coords = this.polylineEncoder.decode(geoString);
+    const coords = this.polylineEncoder.decode(geoString);
 
     return coords[Math.floor(coords.length / 2)];
   }

@@ -1,3 +1,4 @@
+"""Controller for hike api."""
 import mysql.connector
 from flask import Response
 
@@ -8,6 +9,7 @@ from models.hike import Hike
 
 
 def list_hikes() -> []:
+    """List all completed hikes."""
     hikes = controllers.shared.list_hikes()
 
     for hike in hikes:
@@ -17,6 +19,7 @@ def list_hikes() -> []:
 
 
 def add_hike(body: dict) -> Response:
+    """Add a new hike."""
     hike = Hike(body)
 
     s_coord = find_closest_coord(hike.startLat, hike.startLong)
@@ -47,6 +50,7 @@ def add_hike(body: dict) -> Response:
 
 
 def get_hike_dis(body: dict):
+    """Get the distance of a hike."""
     s_coord = find_closest_coord(body["startLat"], body["startLong"])
     e_coord = find_closest_coord(body["endLat"], body["endLong"])
 
