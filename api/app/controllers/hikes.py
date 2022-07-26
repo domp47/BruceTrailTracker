@@ -1,10 +1,10 @@
 """Controller for hike api."""
-import mysql.connector
+import pymongo
 from flask import Response
 
 import controllers.shared
 from controllers.geometry import find_closest_coord, get_polyline_from_coord
-from controllers.shared import dbParams
+from controllers.shared import HIKE_COLLECTIONS, con_string, db_name
 from models.hike import Hike
 
 
@@ -34,17 +34,14 @@ def add_hike(body: dict) -> Response:
     if errs:
         return Response(errs, status=400)
 
-    sql = """
-        INSERT INTO trailTracker.hike
-        (name, start_time, end_time, start_lat, start_long, end_lat, end_long)
-        VALUES (%s, %s, %s, %s, %s, %s, %s);
-        """
-    with mysql.connector.connect(**dbParams) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(
-                sql, (hike.name, hike.startTime, hike.endTime, hike.startLat, hike.startLong, hike.endLat, hike.endLong)
-            )
-        conn.commit()
+    hike = hike.__dict__
+    del hike["_id"]
+
+    with pymongo.MongoClient(con_string) as client:
+        mongo_db = client.get_database(db_name)
+        collection = mongo_db.get_collection(HIKE_COLLECTIONS)
+
+        collection.insert_one(hike)
 
     return Response(status=201)
 

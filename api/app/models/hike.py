@@ -9,14 +9,14 @@ class Hike:
         if not body:
             return
 
-        self.id = self.try_get(body, "id", lambda x: int(x))
+        self._id = self.try_get(body, "_id", lambda x: str(x))
         self.name = self.try_get(body, "name")
         self.startLat = self.try_get(body, "startLat", lambda x: float(x))
         self.startLong = self.try_get(body, "startLong", lambda x: float(x))
         self.endLat = self.try_get(body, "endLat", lambda x: float(x))
         self.endLong = self.try_get(body, "endLong", lambda x: float(x))
-        self.startTime = self.try_get(body, "startTime", lambda x: parser.parse(x))
-        self.endTime = self.try_get(body, "endTime", lambda x: parser.parse(x))
+        self.startTime = self.try_get(body, "startTime", lambda x: parser.parse(x) if isinstance(x, str) else x)
+        self.endTime = self.try_get(body, "endTime", lambda x: parser.parse(x) if isinstance(x, str) else x)
         self.polyline = ""
         self.distance = 0
 

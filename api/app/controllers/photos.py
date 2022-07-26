@@ -1,32 +1,18 @@
 """Controller for photos api."""
-import mysql.connector
+import pymongo
 from flask import Response
 
-from controllers.shared import dbParams
+from controllers.shared import PHOTOS_COLLECTIONS, con_string, db_name
 from models.photo import Photo
 
 
 def list_photos() -> []:
     """Get list of photos."""
-    photos = []
+    with pymongo.MongoClient(con_string) as client:
+        mongo_db = client.get_database(db_name)
+        collection = mongo_db.get_collection(PHOTOS_COLLECTIONS)
 
-    select_str = "SELECT id, time_stamp, location, lat, 'long' FROM trailTracker.photo"
-
-    with mysql.connector.connect(**dbParams) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(select_str)
-
-            row = cursor.fetchone()
-            while row:
-                photo = Photo()
-                photo.id = row[0]
-                photo.timeStamp = row[1]
-                photo.location = row[2]
-                photo.lat = row[3]
-                photo.long = row[4]
-
-                photos.append(photo)
-                row = cursor.fetchone()
+        photos = list(collection.find())
 
     return photos
 
@@ -39,14 +25,13 @@ def add_photo(body: dict):
     if errs:
         return Response(errs, status=400)
 
-    sql = """
-        INSERT INTO trailTracker.photo 
-        (time_stamp, location, lat, long)
-        VALUES (?,?,?,?);
-        """
+    photo = photo.__dict__
+    del photo["_id"]
 
-    with mysql.connector.connect(**dbParams) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(sql, (photo.timeStamp, photo.location, photo.lat, photo.long))
+    with pymongo.MongoClient(con_string) as client:
+        mongo_db = client.get_database(db_name)
+        collection = mongo_db.get_collection(PHOTOS_COLLECTIONS)
+
+        collection.insert_one(photo)
 
     return Response(status=201)

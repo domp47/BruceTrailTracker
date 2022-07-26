@@ -3,7 +3,7 @@ import configparser
 import os
 import pathlib
 
-import mysql.connector
+import pymongo
 
 from models.hike import Hike
 
@@ -12,35 +12,19 @@ configFilename = os.path.join(parent_dir, "..", "config.ini")
 
 config = configparser.RawConfigParser()
 config.read(configFilename)
-dbString = config["DATABASE"]["ConnectionString"]
-dbParams = dict(entry.split("=") for entry in dbString.split(";"))
+con_string = config["DATABASE"]["ConnectionString"]
+db_name = config["DATABASE"]["Database"]
+
+HIKE_COLLECTIONS = "hikes"
+PHOTOS_COLLECTIONS = "photos"
 
 
 def list_hikes() -> []:
     """Get all hikes in the db."""
-    hikes = []
+    with pymongo.MongoClient(con_string) as client:
+        mongo_db = client.get_database(db_name)
+        collection = mongo_db.get_collection(HIKE_COLLECTIONS)
 
-    select_str = (
-        "SELECT id, name, start_time, end_time, start_lat, start_long, end_lat, end_long FROM trailTracker.hike"
-    )
-
-    with mysql.connector.connect(**dbParams) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(select_str)
-
-            row = cursor.fetchone()
-            while row:
-                hike = Hike()
-                hike.id = row[0]
-                hike.name = row[1]
-                hike.startTime = row[2]
-                hike.endTime = row[3]
-                hike.startLat = row[4]
-                hike.startLong = row[5]
-                hike.endLat = row[6]
-                hike.endLong = row[7]
-
-                hikes.append(hike)
-                row = cursor.fetchone()
+        hikes = [Hike(h) for h in collection.find()]
 
     return hikes
